@@ -27,7 +27,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pylint
-          pip install -r requirements.txt  # If the repo has a requirements.txt file
+          #pip install -r requirements.txt  # If the repo has a requirements.txt file
 
       - name: Run Pylint
         run: |
