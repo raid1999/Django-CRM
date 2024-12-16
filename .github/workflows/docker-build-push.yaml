@@ -27,10 +27,9 @@ jobs:
         run: |
             GIT_SHA=$(git rev-parse --short HEAD)
             TAG="v1.0-${GIT_SHA}"
-            docker build -t your-dockerhub-username/your-repo:${TAG} .
-            docker push your-dockerhub-username/your-repo:${TAG}
-        tags: |
-             siam420/django-crm:${{ github.sha }}
+            docker build -t siam420/djanog-crm:${TAG} .
+            docker push siam420/django-crm:${TAG}
+        
 
       - name: Post-build cleanup
         run: docker system prune -f
