@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    
+    command: python manage.py runserver 0.0.0.0:8000  # Adjust this as per your app entry point
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=elderco
+      - DB_USER=root
+      - DB_PASSWORD=password123
+      - DB_HOST=db  # Use the service name
+    networks:
+      - my_custom_network
+
+  db:
+    image: mysql:8.0.40-debian  # Ensure the correct version
+    environment:
+      MYSQL_DATABASE: elderco
+      MYSQL_ROOT_PASSWORD: password123
+    ports:
+      - "3307:3306"  # Clarify port mapping
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_custom_network
+
+networks:
+  my_custom_network:  # Define a custom network
+    driver: bridge
+
+volumes:
+  mysql_data:

@@ -1,4 +1,5 @@
-from pathlib import Path
+from pathlib import Path, os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,14 +64,15 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default':  {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'elderco',
-        'USER': 'root',
-        'PASSWORD': 'password123',
-        'HOST': 'localhost',
+        'NAME': os.getenv('DB_NAME', 'elderco'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'password123'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': '3306',
     }
+
 }
 
 
