@@ -23,13 +23,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and Push Image
-        run: |
-            GIT_SHA=$(git rev-parse --short HEAD)
-            TAG="v1.0-${GIT_SHA}"
-            docker build -t siam420/djanog-crm-web:${TAG} .
-            docker push siam420/django-crm:${TAG}
-        
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            siam420/django-crm:${{ github.sha }}
 
       - name: Post-build cleanup
         run: docker system prune -f
